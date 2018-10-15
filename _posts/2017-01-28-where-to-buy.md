@@ -18,7 +18,7 @@ tags:
 comments: true
 ---
 
-{% border {{page.image[0]}} {{page.image_alt[0]}} %}
+{% amp border {{page.image[0]}} {{page.image_alt[0]}} %}
 
 _Image: {{page.image_alt[0]}}_
 

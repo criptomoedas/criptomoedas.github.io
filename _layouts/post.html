@@ -1,91 +1,43 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-    {% include head.html %}
-	</head>
-	<body class="is-loading">
+---
+layout: default
+---
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+<div class="container">
+    <div class="row">
 
-				<!-- Header -->
-        <header id="header">
-          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
-        </header>
+        <div class="col-md-4">
+            <div class="well">
+                <h4>RECENT POSTS</h4>
+                <ul class="list-unstyled post-list-container">
+                    {% for post in site.posts limit:10 %}
+                    <li><a href="{{ post.url | prepend: site.baseurl }}" {% if page.title==post.title %} class="active" {% endif %}>{{ post.title }}</a></li>
+                    {% endfor %}
+                    <li><a href="{{ "/allposts" | prepend: site.baseurl }}">All posts ...</a></li>
+                </ul>
+            </div>
+        </div>
 
-				<!-- Nav -->
-					<nav id="nav">
+        <div class="col-md-8">
+            <h1>{{ page.title }}</h1>
+            <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+            <div  id="markdown-content-container">{{ content }}</div>
+            <hr>
+            <ul class="pager">
+                {% if page.previous %}
+                <li class="previous">
+                    <a href="{{ page.previous.url | prepend: site.baseurl }}">
+                        <span aria-hidden="true">&larr;</span> Older
+                    </a>
+                </li>
+                {% endif %} {% if page.next %}
+                <li class="next">
+                    <a href="{{ page.next.url | prepend: site.baseurl }}">
+                      Newer <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
 
-            {% include nav.html %}
-
-						<ul class="icons">
-              <li><a href="https://twitter.com/{{site.twitter}}" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/{{site.facebook}}" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/{{site.instagram}}" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/{{site.github}}" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
-
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">{{page.date | date_to_string}}</span>
-      				<h1>{{page.title}}</h1>
-      				<p>{{page.excerpt}}</p>
-      			</header>
-      			<div class="image main"><img src="{{page.image}}" alt=""></div>
-      			<p>{{content}}</p>
-      		</section>
-
-          <div class="comments-wrapper">
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-
-              var disqus_config = function () {
-                  this.page.url = '{{ absolute_url }}{{ page.url }}';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '{{ page.url }}'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
-
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        </div><!-- /.comments-wrapper -->
-
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                <li><a href="{{ "/blog/" | absolute_url }}" class="button">Our Blog</a></li>
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        {% include foot.html %}
-
-			</div>
-
-      <!-- Scripts -->
-  		{% include scripts-main.html %}
-			{% include tracking.html %}
-
-	</body>
-</html>
+    </div>
+</div>
